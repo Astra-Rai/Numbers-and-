@@ -7,16 +7,16 @@
   <!--Bootstrap 4 CDN for CSS file-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
   <style>
-    #fact{
-      display:none;
-    }
+      #fact{
+        display:none;
+      }
   </style>
   <title>Number Facts</title>
 </head>
 <!--body, dark background, bootstrap class "bg-dark" -->
 <body class="bg-dark">
   <div class="container">
-    <div class="row"></div>
+    <div class="row">
       <!--use a grid, with six column div-->
       <!--push grid to middle when resizing window, add margin on each side of 6 colum div margin auto-->
       <div class="col-md-6 mx-auto">
@@ -30,7 +30,7 @@
         <p>Enter a number and get a random fact</p>
           <!--input element id = "input", so we can select input vaule used for javascript--> 
           <!--larger text, form-control-lg-->
-        <input type="number" class="form-control form-control-lg" id="numberInput" placeholder="Enter any number...">
+        <input type="number" min = "0" class="form-control form-control-lg" id="numberInput" placeholder="Enter any number...">
         <div id="fact" class="card-body">
         <h4 class="card-title">
               Number Fact
@@ -43,3 +43,35 @@
       </div>
     </div>
   </div>
+  <script>
+  
+  
+  let fact = document.querySelector('#fact');
+
+  let factText = document.querySelector('#factText');
+  
+  let numberInput = document.querySelector('#numberInput');
+
+  numberInput.addEventListener('input', getFactAjax);
+
+  function getFactAjax() {
+
+    let number = numberInput.value;
+    
+    let xhr = new XMLHttpRequest();
+
+    xhr.open('GET', 'http://numbersapi.com/' + number);
+
+    xhr.onload = function(){
+      if(this.status == 200 && number !=''){
+        fact.style.display = 'block';
+        factText.innerText = this.responseText;
+      }
+    }
+
+    xhr.send();
+
+  }
+  </script>
+  </body>
+  </html>
