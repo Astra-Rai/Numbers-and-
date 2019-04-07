@@ -44,33 +44,54 @@
     </div>
   </div>
   <script>
-  
-  
+  //fact variable containes <div ="id">
+  //this div id has styling of display none by default
+  //this div with with id "fact" and class="card-body" is displayed (display: block)...
+  //if function getFactAjax runs successfully
   let fact = document.querySelector('#fact');
-
+  //let factText variable contains <p id ="factText"
+  //let factText variable is used to display innerText, string data from this.responseText  
   let factText = document.querySelector('#factText');
   
+
   let numberInput = document.querySelector('#numberInput');
-
+  //event listener for input of text in input field
+  //when number is entered, call function getFactAjax
   numberInput.addEventListener('input', getFactAjax);
-
+   
+  //fuction getFactAjax is called when a number is entered into the input field
   function getFactAjax() {
-
+    //variable number will contain the value of number put in input field
+    //variable number value will be concatenated with the DOM string representing the URL to send a request to
     let number = numberInput.value;
-    
+    //variable xhr wiil contain/set to? XMLHttpRequest
+    /*
+    -objects to interacts with servers you can retrieve data
+    from a URL without having to do a full page refresh.
+    */
     let xhr = new XMLHttpRequest();
-
+  //open()method specifies the url to be read from the HTTP mehtod, in this case, GET
+  //open() method can be used to download data by making a 'GET' request
     xhr.open('GET', 'http://numbersapi.com/' + number);
-
+    /*
+    The XMLHttpRequestEventTarget.onload is the function called when an XMLHttpRequest 
+    transaction completes successfully.
+    */
+    //The read-only XMLHttpRequest.status property returns the numerical HTTP status code of the XMLHttpRequest's response.
+    //200 OK The request has succeeded. The meaning of a success varies depending on the HTTP method:
+    //GET: The resource has been fetched and is transmitted in the message body.
     xhr.onload = function(){
+    //if stuatus is 200 and the input field is not empty...
       if(this.status == 200 && number !=''){
+        //display the div with the id = "fact", style display none, changes to display block
         fact.style.display = 'block';
+        //now there is a place for the this.responseText to display as innerText 
+        //this innner text is located <p id = "factText" class = "card-body"
         factText.innerText = this.responseText;
       }
     }
-
+    //The XMLHttpRequest method send() sends the request to the serve
     xhr.send();
-
   }
   </script>
   </body>
